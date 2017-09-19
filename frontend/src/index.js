@@ -7,6 +7,7 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import reducer from './reducers'
 import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom'
 
 const logger = store => next => action => {
   console.group(action.type)
@@ -28,7 +29,9 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root')
 )
