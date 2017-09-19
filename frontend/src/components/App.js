@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Route, Link } from 'react-router-dom'
 
 // Views
@@ -39,4 +40,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default connect()(App)
