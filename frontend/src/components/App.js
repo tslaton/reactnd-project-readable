@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Route, Link } from 'react-router-dom'
-
+import { withRouter, Route, NavLink } from 'react-router-dom'
+import { fetchCategories } from '../actions/categories'
+import { fetchPosts } from '../actions/posts'
+import PostList from './PostList'
 // Views
 // Your application should have, at a minimum, four views:
 
@@ -29,15 +31,50 @@ import { Route, Link } from 'react-router-dom'
 // Post/Comment UI
 // * Posts and comments, in all views where they are displayed, should display their current score and should have controls to increment or decrement the voteScore for the object. Posts should display the number of comments associated with the post.
 class App extends Component {
+  componentDidMount() {
+    this.props.fetchCategories()
+    this.props.fetchPosts()
+  }
+
   render() {
+    const { categories, posts } = this.props
+
     return (
       <div className="app">
-        <Route exact path='/' render={() =>
-          <div>I'm the app, implement me!</div>
+        <div className="nav">
+          {categories.map((category) =>
+            <NavLink key={`nav-${category.name}`} to={`/${category.path}`}>{category.name}</NavLink>
+          )}
+        </div>
+        <Route exact path="/" render={() =>
+          <PostList posts={posts}/>
         }/>
+        {categories.map((category) =>
+          <Route key={`route-${category.name}`} exact path={`/${category.path}`} render={() =>
+            <PostList posts={
+              posts.filter(
+                (post) => post.category === category.name
+              )
+            }/>
+          }/>
+        )}
       </div>
     )
   }
 }
 
-export default connect()(App)
+function mapStateToProps({ categories, posts }) {
+  return {
+    categories,
+    posts,
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchCategories: () => fetchCategories(dispatch),
+    fetchPosts: (category) => fetchPosts(dispatch),
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))

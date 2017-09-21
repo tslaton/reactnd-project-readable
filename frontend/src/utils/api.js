@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3000'
+const BASE_URL = 'http://localhost:3001'
 const headers = {
   Authorization: 'fake-auth-trevor'
 }
@@ -12,7 +12,7 @@ export function fetchCategories() {
 }
 
 // Posts
-export function fetchPosts(category=null) {
+export function fetchPosts(category='') {
   const url = category ? `${BASE_URL}/${category}/posts` : `${BASE_URL}/posts`
   return fetch(url, {
     headers: headers,

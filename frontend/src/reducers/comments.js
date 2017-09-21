@@ -4,13 +4,13 @@ import {
   UPVOTE_COMMENT,
   DOWNVOTE_COMMENT,
   DELETE_COMMENT,
-} from '../actions/comment'
+} from '../actions/comments'
 
-function comment(state={}, action) {
+function comments(state=[], action) {
   switch (action.type) {
     default:
       return state
   }
 }
 
-export default comment
+export default comments
