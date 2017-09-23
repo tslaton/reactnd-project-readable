@@ -15,7 +15,7 @@ class Comment extends Component {
 
   render() {
     return (
-      <div className="Comment"></div>
+      <div></div>
     )
   }
 }

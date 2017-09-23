@@ -28,7 +28,7 @@ class App extends Component {
     const fela = renderer.renderRule
 
     return (
-      <div className="app">
+      <div>
         <div className={fela(styles.navBar)}>
           {categories.map((category) =>
             <NavLink className={fela(styles.navLink)} key={`nav-${category.name}`} to={`/${category.path}`}>{category.name}</NavLink>
@@ -50,6 +50,7 @@ class App extends Component {
     )
   }
 }
+
 App.contextTypes = { renderer: PropTypes.object.isRequired }
 
 function mapStateToProps({ categories, posts }) {
@@ -69,6 +70,10 @@ function mapDispatchToProps(dispatch) {
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))
 
 const styles = {
+  app: () => ({
+    display: 'grid',
+    gridTemplateRows: '48px auto',
+  }),
   navBar: () => ({
     backgroundColor: '#333',
     overflow: 'hidden',
