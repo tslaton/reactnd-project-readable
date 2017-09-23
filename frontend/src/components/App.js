@@ -1,20 +1,13 @@
+// Libraries
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import { withRouter, Route, NavLink } from 'react-router-dom'
+import { connect } from 'react-redux'
+// Modules
 import { fetchCategories } from '../actions/categories'
 import { fetchPosts } from '../actions/posts'
+// Components
 import PostList from './PostList'
-// Views
-// Your application should have, at a minimum, four views:
-
-// Default (Root)
-// * should list all available categories, which should link to a category view for that category
-// * should list all of the posts ordered by voteScore (highest score first)
-// * should have a control for changing the sort method for the list, including at minimum, order by voteScore and order by timestamp
-// * should have a control for adding a new post
-
-// Category View
-// * identical to the default view, but filtered to only include posts with the selected category
 
 // Post Detail View
 // * should show the details of a post, including: Title, Body, Author, timestamp (in user readable format), and vote score
@@ -23,13 +16,6 @@ import PostList from './PostList'
 // * should have a control to add a new comment.
 // * implement comment form however you want (inline, modal, etc.)
 // * comments should also have controls for editing or deleting
-
-// Create/Edit View
-// * should have a form to create new post or edit existing posts
-// * when editing, existing data should be populated in the form
-
-// Post/Comment UI
-// * Posts and comments, in all views where they are displayed, should display their current score and should have controls to increment or decrement the voteScore for the object. Posts should display the number of comments associated with the post.
 class App extends Component {
   componentDidMount() {
     this.props.fetchCategories()
@@ -38,12 +24,14 @@ class App extends Component {
 
   render() {
     const { categories, posts } = this.props
+    const { renderer } = this.context
+    const fela = renderer.renderRule
 
     return (
       <div className="app">
-        <div className="nav">
+        <div className={fela(styles.navBar)}>
           {categories.map((category) =>
-            <NavLink key={`nav-${category.name}`} to={`/${category.path}`}>{category.name}</NavLink>
+            <NavLink className={fela(styles.navLink)} key={`nav-${category.name}`} to={`/${category.path}`}>{category.name}</NavLink>
           )}
         </div>
         <Route exact path="/" render={() =>
@@ -62,6 +50,7 @@ class App extends Component {
     )
   }
 }
+App.contextTypes = { renderer: PropTypes.object.isRequired }
 
 function mapStateToProps({ categories, posts }) {
   return {
@@ -78,3 +67,27 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))
+
+const styles = {
+  navBar: () => ({
+    backgroundColor: '#333',
+    overflow: 'hidden',
+  }),
+  navLink: () => ({
+    float: 'left',
+    display: 'block',
+    color: '#f2f2f2',
+    textAlign: 'center',
+    padding: '14px 16px',
+    textDecoration: 'none',
+    fontSize: '17px',
+    ':hover': {
+      backgroundColor: '#ddd',
+      color: 'black',
+    },
+    '&.active': {
+      backgroundColor: '#4CAF50',
+      color: 'white',
+    },
+  }),
+}
