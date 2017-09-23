@@ -8,8 +8,8 @@ import { fetchCategories } from '../actions/categories'
 import { fetchPosts } from '../actions/posts'
 // Components
 import PostList from './PostList'
-// Styling
-import theme from '../themes'
+// Styles
+import cl from '../styles/renderer'
 
 // Post Detail View
 // * should show the details of a post, including: Title, Body, Author, timestamp (in user readable format), and vote score
@@ -27,8 +27,6 @@ class App extends Component {
   render() {
     const { categories, posts } = this.props
     const extendedCategories = [{ name: 'all', path: '' }, ...categories]
-    const { renderer } = this.context
-    const cl = (className) => renderer.renderRule(styles[className])
 
     return (
       <div>
@@ -51,8 +49,6 @@ class App extends Component {
   }
 }
 
-App.contextTypes = { renderer: PropTypes.object.isRequired }
-
 function mapStateToProps({ categories, posts }) {
   return {
     categories,
@@ -68,27 +64,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))
-
-const styles = {
-  navbar: () => ({
-    backgroundColor: theme.navbarBackground,
-    overflow: 'hidden',
-  }),
-  navlink: () => ({
-    float: 'left',
-    display: 'block',
-    color: theme.navlink,
-    textAlign: 'center',
-    padding: '14px 16px',
-    textDecoration: 'none',
-    fontSize: '17px',
-    ':hover': {
-      backgroundColor: theme.navlinkBackgroundHover,
-      color: theme.navlinkHover,
-    },
-    '&.active': {
-      backgroundColor: theme.navlinkBackgroundActive,
-      color: theme.navlinkActive,
-    },
-  }),
-}

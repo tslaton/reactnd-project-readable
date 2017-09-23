@@ -4,12 +4,12 @@ import PropTypes from 'prop-types'
 // Components
 import Voter from './Voter'
 import PostContent from './PostContent'
+// Styles
+import cl from '../styles/renderer'
 
 class Post extends Component {
   render() {
     const postData = this.props.postData
-    const { renderer } = this.context
-    const cl = (className) => renderer.renderRule(styles[className])
 
     return (
       <div className={cl('post')}>
@@ -20,17 +20,8 @@ class Post extends Component {
   }
 }
 
-Post.contextTypes = { renderer: PropTypes.object.isRequired }
-
 Post.propTypes = {
   postData: PropTypes.object.isRequired,
 }
 
 export default Post
-
-const styles = {
-  post: () => ({
-    display: 'grid',
-    gridTemplateColumns: '40px 1fr',
-  }),
-}

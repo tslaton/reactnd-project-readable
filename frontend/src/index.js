@@ -1,9 +1,7 @@
 // Libraries
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { createRenderer } from 'fela'
 import { Provider as FelaProvider } from 'react-fela'
-import monolithic from 'fela-monolithic'
 import { BrowserRouter } from 'react-router-dom'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider as ReduxProvider } from 'react-redux'
@@ -14,7 +12,8 @@ import reducer from './reducers'
 // Components
 import App from './components/App'
 // Style
-import './index.css'
+import { renderer } from './styles/renderer'
+import './styles/index.css'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
@@ -24,11 +23,6 @@ const store = createStore(
     applyMiddleware(thunk)
   )
 )
-
-const config = {
-  enhancers: [ monolithic({ prettySelectors: true }) ]
-}
-const renderer = createRenderer(config)
 
 ReactDOM.render(
   <ReduxProvider store={store}>
