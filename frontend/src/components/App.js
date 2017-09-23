@@ -8,6 +8,8 @@ import { fetchCategories } from '../actions/categories'
 import { fetchPosts } from '../actions/posts'
 // Components
 import PostList from './PostList'
+// Styling
+import theme from '../themes'
 
 // Post Detail View
 // * should show the details of a post, including: Title, Body, Author, timestamp (in user readable format), and vote score
@@ -24,24 +26,22 @@ class App extends Component {
 
   render() {
     const { categories, posts } = this.props
+    const extendedCategories = [{ name: 'all', path: '' }, ...categories]
     const { renderer } = this.context
-    const fela = renderer.renderRule
+    const cl = (className) => renderer.renderRule(styles[className])
 
     return (
       <div>
-        <div className={fela(styles.navBar)}>
-          {categories.map((category) =>
-            <NavLink className={fela(styles.navLink)} key={`nav-${category.name}`} to={`/${category.path}`}>{category.name}</NavLink>
+        <div className={cl('navbar')}>
+          {extendedCategories.map((category) =>
+            <NavLink className={cl('navlink')} key={`nav-${category.name}`} exact to={`/${category.path}`}>{category.name}</NavLink>
           )}
         </div>
-        <Route exact path="/" render={() =>
-          <PostList posts={posts}/>
-        }/>
-        {categories.map((category) =>
+        {extendedCategories.map((category) =>
           <Route key={`route-${category.name}`} exact path={`/${category.path}`} render={() =>
             <PostList posts={
               posts.filter(
-                (post) => post.category === category.name
+                (post) => post.category === category.name || category.name === 'all'
               )
             }/>
           }/>
@@ -70,29 +70,25 @@ function mapDispatchToProps(dispatch) {
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))
 
 const styles = {
-  app: () => ({
-    display: 'grid',
-    gridTemplateRows: '48px auto',
-  }),
-  navBar: () => ({
-    backgroundColor: '#333',
+  navbar: () => ({
+    backgroundColor: theme.navbarBackground,
     overflow: 'hidden',
   }),
-  navLink: () => ({
+  navlink: () => ({
     float: 'left',
     display: 'block',
-    color: '#f2f2f2',
+    color: theme.navlink,
     textAlign: 'center',
     padding: '14px 16px',
     textDecoration: 'none',
     fontSize: '17px',
     ':hover': {
-      backgroundColor: '#ddd',
-      color: 'black',
+      backgroundColor: theme.navlinkBackgroundHover,
+      color: theme.navlinkHover,
     },
     '&.active': {
-      backgroundColor: '#4CAF50',
-      color: 'white',
+      backgroundColor: theme.navlinkBackgroundActive,
+      color: theme.navlinkActive,
     },
   }),
 }
