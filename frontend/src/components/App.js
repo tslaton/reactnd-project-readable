@@ -1,15 +1,13 @@
 // Libraries
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { withRouter, Route, NavLink } from 'react-router-dom'
+import { withRouter, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 // Modules
 import { fetchCategories } from '../actions/categories'
 import { fetchPosts } from '../actions/posts'
 // Components
+import Navbar from './Navbar'
 import PostList from './PostList'
-// Styles
-import cl from '../styles/renderer'
 
 // Post Detail View
 // * should show the details of a post, including: Title, Body, Author, timestamp (in user readable format), and vote score
@@ -30,11 +28,7 @@ class App extends Component {
 
     return (
       <div>
-        <div className={cl('navbar')}>
-          {extendedCategories.map((category) =>
-            <NavLink className={cl('navlink')} key={`nav-${category.name}`} exact to={`/${category.path}`}>{category.name}</NavLink>
-          )}
-        </div>
+        <Navbar categories={extendedCategories}/>
         {extendedCategories.map((category) =>
           <Route key={`route-${category.name}`} exact path={`/${category.path}`} render={() =>
             <PostList posts={
