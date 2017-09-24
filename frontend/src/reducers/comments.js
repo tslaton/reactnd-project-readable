@@ -7,7 +7,7 @@ import {
   DELETE_COMMENT,
 } from '../actions/comments'
 
-function comments(state=[], action) {
+export default function comments(state=[], action) {
   switch (action.type) {
     case RECEIVE_COMMENTS:
       const others = state.filter(comment => comment.parentId !== action.parentId)
@@ -19,5 +19,3 @@ function comments(state=[], action) {
       return state
   }
 }
-
-export default comments

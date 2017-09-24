@@ -22,3 +22,7 @@ export const navlink = () => ({
     color: theme.navlinkActive,
   },
 })
+
+export const select = () => ({
+  display: 'inline',
+})

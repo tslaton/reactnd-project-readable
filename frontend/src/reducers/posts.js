@@ -7,7 +7,7 @@ import {
   DELETE_POST,
 } from '../actions/posts'
 
-function posts(state=[], action) {
+export default function posts(state=[], action) {
   switch(action.type) {
     case RECEIVE_POSTS:
       return action.posts
@@ -15,5 +15,3 @@ function posts(state=[], action) {
       return state
   }
 }
-
-export default posts
