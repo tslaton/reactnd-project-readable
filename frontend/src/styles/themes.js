@@ -1,9 +1,3 @@
-const theme = {
-  navbarBackground: '#333',
-  navlink: '#f2f2f2',
-  navlinkHover: 'black',
-  navlinkActive: 'white',
-  navlinkBackgroundHover: '#ddd',
-  navlinkBackgroundActive: '#4CAF50',
-}
+/* eslint import/no-webpack-loader-syntax: off */
+import theme from '!!sass-variable-loader!./themes/default.scss'
 export default theme

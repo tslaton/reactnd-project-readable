@@ -1,5 +1,8 @@
+// Libraries
 import React, { Component } from 'react'
-
+import PropTypes from 'prop-types'
+// Styles
+import cl from '../styles/renderer'
 // id	String	Unique identifier
 // parentId	String	id of the parent post
 // timestamp	Integer	Time created - default data tracks this in Unix time. You can use Date.now() to get this number
@@ -9,15 +12,19 @@ import React, { Component } from 'react'
 // deleted	Boolean	Flag if comment has been 'deleted' (inaccessible by the front end), (default: false)
 // parentDeleted	Boolean	Flag for when the the parent post was deleted, but the comment itself was not.
 class Comment extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   render() {
+    const commentData = this.props.commentData
+
     return (
-      <div></div>
+      <div className={cl('comment')}>
+
+      </div>
     )
   }
+}
+
+Comment.propTypes = {
+  commentData: PropTypes.object.isRequired,
 }
 
 export default Comment

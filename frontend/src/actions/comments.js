@@ -1,8 +1,24 @@
+import * as api from '../utils/api'
+
+export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS'
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const EDIT_COMMENT = 'EDIT_COMMENT'
 export const UPVOTE_COMMENT = 'UPVOTE_COMMENT'
 export const DOWNVOTE_COMMENT = 'DOWNVOTE_COMMENT'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
+
+export function receiveComments({ parentId, comments }) {
+  return {
+    type: RECEIVE_COMMENTS,
+    parentId,
+    comments,
+  }
+}
+
+export function fetchComments(dispatch, { parentId }) {
+  api.fetchComments(parentId)
+    .then(comments => dispatch(receiveComments({ parentId, comments })))
+}
 
 export function addComment({ parentId, body, author }) {
   return {

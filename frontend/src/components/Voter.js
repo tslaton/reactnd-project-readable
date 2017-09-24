@@ -12,9 +12,9 @@ class Voter extends Component {
     const { voteScore } = this.props
 
     return (
-      <div className={cl('container')}>
+      <div className={cl('voter')}>
         <GoArrowUp size={30}/>
-        <div className={cl('center')}>{voteScore}</div>
+        {voteScore !== undefined && <div className={cl('vote-score')}>{voteScore}</div>}
         <GoArrowDown size={30}/>
       </div>
     )
@@ -22,7 +22,7 @@ class Voter extends Component {
 }
 
 Voter.propTypes = {
-  voteScore: PropTypes.number.isRequired,
+  voteScore: PropTypes.number,
 }
 
 export default Voter
