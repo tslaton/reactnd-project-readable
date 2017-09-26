@@ -6,8 +6,8 @@ export const navbar = () => ({
 })
 
 export const navlink = () => ({
-  float: 'left',
   display: 'block',
+  float: 'left',
   color: theme.navlink,
   textAlign: 'center',
   padding: '14px 16px',
@@ -23,6 +23,14 @@ export const navlink = () => ({
   },
 })
 
+export const sortGroup = () => ({
+  display: 'block',
+  float: 'right',
+  padding: '14px 16px',
+})
+
 export const select = () => ({
   display: 'inline',
+  padding: '8px',
+  color: theme.navlink,
 })

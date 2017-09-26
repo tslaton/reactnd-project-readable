@@ -19,27 +19,29 @@ class Navbar extends Component {
         {categories.map((category) =>
           <NavLink className={cl('navlink')} key={`nav-${category.name}`} exact to={`/${category.path}`}>{category.name}</NavLink>
         )}
-        <Select
-          id="sort-by"
-          label="Sort by:"
-          options={[
-            { value: 'voteScore', name: 'Votes' },
-            { value: 'timestamp', name: 'Submission Time' },
-            { value: 'author', name: 'Author' },
-          ]}
-          value={sortPostsBy}
-          actionOnChange={changeSortBy}
-        />
-        <Select
-          id="sort-order"
-          label="Order:"
-          options={[
-            { value: 'ascending', name: 'A => Z' },
-            { value: 'descending', name: 'Z => A' },
-          ]}
-          value={orderPosts}
-          actionOnChange={changeSortOrder}
-        />
+        <div className={cl('sort-group')}>
+          <Select
+            id="sort-by"
+            label="Sort by:"
+            options={[
+              { value: 'voteScore', name: 'Votes' },
+              { value: 'timestamp', name: 'Submission Time' },
+              { value: 'author', name: 'Author' },
+            ]}
+            value={sortPostsBy}
+            actionOnChange={changeSortBy}
+          />
+          <Select
+            id="sort-order"
+            label="Order:"
+            options={[
+              { value: 'ascending', name: 'A => Z' },
+              { value: 'descending', name: 'Z => A' },
+            ]}
+            value={orderPosts}
+            actionOnChange={changeSortOrder}
+          />
+        </div>
       </div>
     )
   }
