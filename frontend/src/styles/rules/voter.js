@@ -1,6 +1,6 @@
-export const voter = (props) => ({
+export const voter = ({ voteScore }) => ({
   display: 'grid',
-  gridTemplateRows: props.voteScore ? '1fr 1fr 1fr' : '1fr 1fr',
+  gridTemplateRows: voteScore !== undefined ? '1fr 1fr 1fr' : '1fr 1fr',
   alignSelf: 'start',
   justifySelf: 'center',
 })

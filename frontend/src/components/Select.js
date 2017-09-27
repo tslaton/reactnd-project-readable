@@ -3,7 +3,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 // Styles
-import cl from '../styles/renderer'
+import scopedStyles from '../styles/renderer'
+const cl = scopedStyles('navbar')
 
 class Select extends Component {
   render() {

@@ -1,23 +1,35 @@
 // Libraries
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+// Modules
+import { formatTime } from '../utils'
+// Components
+import Voter from './Voter'
 // Styles
-import cl from '../styles/renderer'
-// id	String	Unique identifier
-// parentId	String	id of the parent post
-// timestamp	Integer	Time created - default data tracks this in Unix time. You can use Date.now() to get this number
-// body	String	Comment body
-// author	String	Comment author
-// voteScore	Integer	Net votes the comment has received (default: 1)
-// deleted	Boolean	Flag if comment has been 'deleted' (inaccessible by the front end), (default: false)
-// parentDeleted	Boolean	Flag for when the the parent post was deleted, but the comment itself was not.
+import scopedStyles from '../styles/renderer'
+const cl = scopedStyles('comment')
+
 class Comment extends Component {
   render() {
     const commentData = this.props.commentData
 
     return (
       <div className={cl('comment')}>
-
+        <Voter></Voter>
+        <div className={cl('panel')}>
+          <div className={cl('info-bar')}>
+            <div>
+              <span>{commentData.author}</span>
+              <b>&nbsp;<span>{commentData.voteScore}</span>&nbsp;points&nbsp;</b>
+              <span>{formatTime(commentData.timestamp)}</span>
+            </div>
+            <div className={cl('actions')}>
+              <a href="#">Edit</a>
+              <a href="#">Delete</a>
+            </div>
+          </div>
+          <div>{commentData.body}</div>
+        </div>
       </div>
     )
   }

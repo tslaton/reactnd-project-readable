@@ -12,17 +12,38 @@ export const panel = () => ({
   borderRadius: '10px',
 })
 
-export const title = () => ({
+export const titleBar = () => ({
+  display: 'grid',
+  gridTemplateColumns: '1fr 64px',
   fontSize: '20px',
   marginBottom: '4px',
 })
 
-export const content = () => ({
-  display: 'grid',
-  gridTemplateColumns: '24px 1fr',
+export const title = () => ({
+  alignSelf: 'center',
+  justifySelf: 'start',
+  textDecoration: 'none',
+  color: theme.title,
 })
 
-export const expander = () => ({
+export const actions = () => ({
+  alignSelf: 'start',
+  justifySelf: 'end',
+  '> a': {
+    fontSize: '12px',
+    textDecoration: 'none',
+    padding: '2px',
+    color: theme.action,
+  }
+})
+
+export const content = ({ viewMode }) => ({
+  display: 'grid',
+  gridTemplateColumns: viewMode === 'detail' ? '1fr' : '24px 1fr',
+})
+
+export const expander = ({ viewMode }) => ({
+  display: viewMode === 'list' ? 'block' : 'none',
   alignSelf: 'center',
   justifySelf: 'center',
   '> button': {
@@ -33,12 +54,14 @@ export const expander = () => ({
   }
 })
 
-export const body = (params) => ({
-  display: params.isExpanded ? 'block' : 'none',
+export const body = ({ viewMode, isExpanded }) => ({
+  display: viewMode === 'detail' || isExpanded ? 'block' : 'none',
   marginTop: '10px',
   padding: '8px',
-  border: `1px solid ${theme.postBodyBackground}`,
+  border: viewMode === 'list' ? `1px solid ${theme.postBodyBackground}` : 'none',
   borderRadius: '10px',
+  color: viewMode === 'detail' ? theme.postDetailText : theme.postDefaultText,
+  backgroundColor: viewMode === 'detail' ? theme.postBodyBackground : 'none',
 })
 
 export const info = () => ({

@@ -34,3 +34,20 @@ export const select = () => ({
   padding: '8px',
   color: theme.navlink,
 })
+
+export const back = () => ({
+  '> a': {
+    textDecoration: 'none',
+    padding: '8px',
+    color: theme.navlinkActive,
+    ':hover': {
+      color: theme.navlinkBackgroundActive,
+    }
+  },
+  '> span': {
+    display: 'inline-block',
+    padding: '14px 0',
+    fontSize: '17px',
+    color: theme.navlink,
+  },
+})

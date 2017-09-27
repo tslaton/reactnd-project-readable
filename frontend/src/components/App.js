@@ -1,21 +1,15 @@
 // Libraries
 import React, { Component } from 'react'
-import { withRouter, Route } from 'react-router-dom'
+import { withRouter, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 // Components
 import Navbar from './Navbar'
 import PostList from './PostList'
+import Post from './Post'
 // Actions
 import { fetchCategories } from '../actions/categories'
 import { fetchPosts } from '../actions/posts'
 
-// Post Detail View
-// * should show the details of a post, including: Title, Body, Author, timestamp (in user readable format), and vote score
-// * should list all of the comments for that post, ordered by voteScore (highest first)
-// * should have controls to edit or delete the post
-// * should have a control to add a new comment.
-// * implement comment form however you want (inline, modal, etc.)
-// * comments should also have controls for editing or deleting
 class App extends Component {
   componentDidMount() {
     this.props.fetchCategories()
@@ -27,18 +21,26 @@ class App extends Component {
     const extendedCategories = [{ name: 'all', path: '' }, ...categories]
 
     return (
-      <div>
-        <Navbar categories={extendedCategories}/>
+      <Switch>
         {extendedCategories.map((category) =>
           <Route key={`route-${category.name}`} exact path={`/${category.path}`} render={() =>
-            <PostList posts={
-              posts.filter(
+            <div>
+              <Navbar categories={extendedCategories}/>
+              <PostList posts={posts.filter(
                 (post) => post.category === category.name || category.name === 'all'
-              )
-            }/>
+              )}/>
+            </div>
           }/>
         )}
-      </div>
+        {posts.map((post) =>
+          <Route key={`route-${post.category}-${post.id}`} exact path={`/${post.category}/${post.id}`} render={() =>
+            <div>
+              <Navbar parentCategory={post.category}/>
+              <Post postData={post} viewMode="detail"/>
+            </div>
+          }/>
+        )}
+      </Switch>
     )
   }
 }

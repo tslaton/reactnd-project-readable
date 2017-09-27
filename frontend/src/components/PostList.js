@@ -9,7 +9,7 @@ class PostList extends Component {
     return (
       <div>
         {posts.map((post) =>
-          <Post key={`post-${post.id}`} postData={post}/>
+          <Post key={`post-${post.id}`} postData={post} viewMode="list"/>
         )}
       </div>
     )

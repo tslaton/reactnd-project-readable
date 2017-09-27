@@ -3,9 +3,9 @@ import { createRenderer } from 'fela'
 import monolithic from 'fela-monolithic'
 import prefixAll from 'inline-style-prefixer/static'
 // Modules
-import { capitalize } from '../utils'
+import { camelCase } from '../utils'
 // Styles
-import * as rules from './rules'
+import { scopedRules, allRules as rules } from './rules'
 
 const prefixerPlugin = styleObject => prefixAll(styleObject)
 const config = {
@@ -14,15 +14,11 @@ const config = {
 }
 export const renderer = createRenderer(config)
 
-export default function renderRule(className, props) {
-  let ruleName = className
-  // Accept hyphenated CSS-style names as well as camelCase
-  let parts = className.split('-')
-  if (parts.length > 1) {
-    parts = parts.map(part => part.toLowerCase())
-    parts = [parts[0], ...parts.slice(1).map(part => capitalize(part))]
-    ruleName = parts.join('')
+export default function scopedRenderRule(scope) {
+  const casedScope = camelCase(scope)
+  return function renderRule(ruleName, props) {
+    const casedRuleName = camelCase(ruleName)
+    const rule = scope ? scopedRules[casedScope][casedRuleName] : rules[casedRuleName]
+    return renderer.renderRule(rule, props)
   }
-  const rule = rules[ruleName]
-  return props ? renderer.renderRule(rule, props) : renderer.renderRule(rule)
 }
