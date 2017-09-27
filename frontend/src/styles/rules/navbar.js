@@ -36,16 +36,19 @@ export const select = () => ({
 })
 
 export const back = () => ({
+  display: 'grid',
+  gridTemplateColumns: '48px 1fr',
   '> a': {
+    alignSelf: 'center',
+    justifySelf: 'center',
     textDecoration: 'none',
-    padding: '8px',
     color: theme.navlinkActive,
     ':hover': {
       color: theme.navlinkBackgroundActive,
     }
   },
   '> span': {
-    display: 'inline-block',
+    justifySelf: 'start',
     padding: '14px 0',
     fontSize: '17px',
     color: theme.navlink,

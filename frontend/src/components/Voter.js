@@ -14,9 +14,9 @@ class Voter extends Component {
 
     return (
       <div className={cl('voter', { voteScore })}>
-        <GoArrowUp size={30}/>
+        <GoArrowUp className={cl('arrow-up')} size={30}/>
         {voteScore !== undefined && <div className={cl('vote-score')}>{voteScore}</div>}
-        <GoArrowDown size={30}/>
+        <GoArrowDown className={cl('arrow-down')} size={30}/>
       </div>
     )
   }
