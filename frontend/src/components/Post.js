@@ -45,7 +45,7 @@ class Post extends Component {
     return (
       <div>
         <div className={cl('post')}>
-          <Voter voteScore={postData.voteScore}></Voter>
+          <Voter parentType="post" parentID={postData.id} voteScore={postData.voteScore}></Voter>
           <div className={cl('panel')}>
             <div className={cl('title-bar')}>
               <NavLink className={cl('title')} exact to={`/${postData.category}/${postData.id}`}>{postData.title}</NavLink>

@@ -37,6 +37,11 @@ export function editPost({ title, body }) {
   }
 }
 
+export function voteOnPost(dispatch, { id, vote }) {
+  api.voteOnPost(id, vote)
+    .then(() => dispatch(vote === 'upVote' ? upvotePost({ id }) : downvotePost({ id })))
+}
+
 export function upvotePost({ id }) {
   return {
     type: UPVOTE_POST,

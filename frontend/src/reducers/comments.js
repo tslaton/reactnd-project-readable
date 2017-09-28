@@ -15,6 +15,24 @@ export default function comments(state=[], action) {
         acc.find((el) => el.id === comment.id) ? acc : [...acc, comment],
         action.comments
       )
+    case UPVOTE_COMMENT:
+      return state.map((comment) => {
+        if (comment.id === action.id) {
+          return {...comment, voteScore: comment.voteScore + 1}
+        }
+        else {
+          return comment
+        }
+      })
+    case DOWNVOTE_COMMENT:
+      return state.map((comment) => {
+        if (comment.id === action.id) {
+          return {...comment, voteScore: comment.voteScore - 1}
+        }
+        else {
+          return comment
+        }
+      })
     default:
       return state
   }

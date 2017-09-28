@@ -37,6 +37,11 @@ export function editComment({ timestamp, body }) {
   }
 }
 
+export function voteOnComment(dispatch, { id, vote }) {
+  api.voteOnComment(id, vote)
+    .then(() => dispatch(vote === 'upVote' ? upvoteComment({ id }) : downvoteComment({ id })))
+}
+
 export function upvoteComment({ id }) {
   return {
     type: UPVOTE_COMMENT,

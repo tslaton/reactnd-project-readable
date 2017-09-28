@@ -15,7 +15,7 @@ class Comment extends Component {
 
     return (
       <div className={cl('comment')}>
-        <Voter></Voter>
+        <Voter parentType="comment" parentID={commentData.id}></Voter>
         <div className={cl('panel')}>
           <div className={cl('info-bar')}>
             <div>
