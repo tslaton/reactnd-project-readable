@@ -12,7 +12,7 @@ export function sortPostsBy(state='voteScore', action) {
   }
 }
 
-export function orderPosts(state='descending', action) {
+export function orderPosts(state='desc', action) {
   switch(action.type) {
     case CHANGE_SORT_ORDER:
       return action.sortOrder

@@ -2,8 +2,7 @@
 import React, { Component } from 'react'
 import { withRouter, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
-// Modules
-import { compare } from '../utils'
+import * as _ from 'lodash'
 // Components
 import Navbar from './Navbar'
 import PostList from './PostList'
@@ -50,7 +49,7 @@ class App extends Component {
 function mapStateToProps({ categories, posts, sortPostsBy, orderPosts }) {
   return {
     categories,
-    posts: posts.slice().sort(compare(sortPostsBy, orderPosts)),
+    posts: _.orderBy(posts, [sortPostsBy], [orderPosts]),
   }
 }
 

@@ -3,8 +3,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
+import * as _ from 'lodash'
 // Modules
-import { formatTime, compare } from '../utils'
+import { formatTime } from '../utils'
 // Actions
 import { fetchComments } from '../actions/comments'
 // Components
@@ -82,7 +83,7 @@ Post.propTypes = {
 function mapStateToProps({ comments }, { postData }) {
   const id = postData.id
   return {
-    comments: comments.filter(comment => comment.parentId === id).sort(compare('voteScore', 'descending')),
+    comments: _.orderBy(comments.filter(comment => comment.parentId === id), ['voteScore'], ['desc']),
   }
 }
 

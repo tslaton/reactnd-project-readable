@@ -40,8 +40,8 @@ class Navbar extends Component {
                 id="sort-order"
                 label="Order:"
                 options={[
-                  { value: 'ascending', name: 'A => Z' },
-                  { value: 'descending', name: 'Z => A' },
+                  { value: 'asc', name: 'A => Z' },
+                  { value: 'desc', name: 'Z => A' },
                 ]}
                 value={orderPosts}
                 actionOnChange={changeSortOrder}
