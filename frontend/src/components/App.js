@@ -2,6 +2,8 @@
 import React, { Component } from 'react'
 import { withRouter, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
+// Modules
+import { compare } from '../utils'
 // Components
 import Navbar from './Navbar'
 import PostList from './PostList'
@@ -46,18 +48,9 @@ class App extends Component {
 }
 
 function mapStateToProps({ categories, posts, sortPostsBy, orderPosts }) {
-  const sortedPosts = posts.slice().sort((a, b) => {
-    const v1 = a[sortPostsBy]
-    const v2 = b[sortPostsBy]
-    const compare = v1 < v2 ? -1
-      : v1 > v2 ? 1
-      : 0
-    return orderPosts === 'ascending' ? compare : -compare
-  })
-
   return {
     categories,
-    posts: sortedPosts,
+    posts: posts.slice().sort(compare(sortPostsBy, orderPosts)),
   }
 }
 
