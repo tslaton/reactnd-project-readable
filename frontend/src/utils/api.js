@@ -1,6 +1,6 @@
 const BASE_URL = 'http://localhost:3001'
 const headers = {
-  Authorization: 'fake-auth-trevor'
+  Authorization: 'fake-auth-trevor',
 }
 
 // Categories
@@ -29,30 +29,36 @@ export function fetchPost(id) {
 
 export function addPost(post) {
   return fetch(`${BASE_URL}/posts`, {
-    headers: headers,
+    headers: { ...headers,
+      'Content-Type': 'application/json'
+    },
     method: 'POST',
-    body: post,
+    body: JSON.stringify({ ...post }),
   })
     .then(res => res.json())
 }
 
 export function voteOnPost(id, vote) {
   return fetch(`${BASE_URL}/posts/${id}`, {
-    headers: headers,
+    headers: { ...headers,
+      'Content-Type': 'application/json'
+    },
     method: 'POST',
-    body: vote,
+    body: JSON.stringify({ option: vote }),
   })
     .then(res => res.json())
 }
 
 export function editPost(id, title, body) {
   return fetch(`${BASE_URL}/posts/${id}`, {
-    headers: headers,
+    headers: { ...headers,
+      'Content-Type': 'application/json'
+    },
     method: 'PUT',
-    body: {
+    body: JSON.stringify({
       title,
       body,
-    },
+    }),
   })
     .then(res => res.json())
 }
@@ -82,30 +88,36 @@ export function fetchComment(id) {
 
 export function addComment(comment) {
   return fetch(`${BASE_URL}/comments`, {
-    headers: headers,
+    headers: { ...headers,
+      'Content-Type': 'application/json'
+    },
     method: 'POST',
-    body: comment,
+    body: JSON.stringify({ ...comment }),
   })
     .then(res => res.json())
 }
 
 export function voteOnComment(id, vote) {
   return fetch(`${BASE_URL}/comments/${id}`, {
-    headers: headers,
+    headers: { ...headers,
+      'Content-Type': 'application/json'
+    },
     method: 'POST',
-    body: vote,
+    body: JSON.stringify({ option: vote }),
   })
     .then(res => res.json())
 }
 
 export function editComment(id, body, timestamp) {
   return fetch(`${BASE_URL}/comments/${id}`, {
-    headers: headers,
+    headers: { ...headers,
+      'Content-Type': 'application/json'
+    },
     method: 'PUT',
-    body: {
+    body: JSON.stringify({
       body,
       timestamp,
-    },
+    }),
   })
     .then(res => res.json())
 }

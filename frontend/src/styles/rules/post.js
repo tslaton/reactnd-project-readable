@@ -39,7 +39,7 @@ export const actions = () => ({
 
 export const content = ({ viewMode }) => ({
   display: 'grid',
-  gridTemplateColumns: viewMode === 'detail' ? '1fr' : '24px 1fr',
+  gridTemplateColumns: viewMode === 'detail' ? '1fr' : '32px 1fr',
 })
 
 export const expander = ({ viewMode }) => ({
