@@ -1,5 +1,6 @@
 const modules = {
   navbar: require('./navbar'),
+  actionBar: require('./action-bar'),
   voter: require('./voter'),
   post: require('./post'),
   comment: require('./comment'),

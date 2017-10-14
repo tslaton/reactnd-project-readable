@@ -1,6 +1,7 @@
 import * as api from '../utils/api'
 
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
+export const SHOW_POSTS_MODAL = 'SHOW_POSTS_MODAL'
 export const ADD_POST = 'ADD_POST'
 export const EDIT_POST = 'EDIT_POST'
 export const UPVOTE_POST = 'UPVOTE_POST'
@@ -17,6 +18,10 @@ export function receivePosts(posts) {
 export function fetchPosts(dispatch) {
   api.fetchPosts()
     .then(data => dispatch(receivePosts(data || [])))
+}
+
+export function showPostsModal({  }) {
+
 }
 
 export function addPost ({ title, body, author, category }) {
