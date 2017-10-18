@@ -27,11 +27,13 @@ export const sortGroup = () => ({
   display: 'block',
   float: 'right',
   padding: '14px 16px',
+  '> div': {
+    padding: '8px',
+  }
 })
 
 export const select = () => ({
   display: 'inline',
-  padding: '8px',
   color: theme.navlink,
 })
 
@@ -42,7 +44,7 @@ export const back = () => ({
     alignSelf: 'center',
     justifySelf: 'center',
     textDecoration: 'none',
-    color: theme.navlinkActive,
+    color: theme.navlink,
     ':hover': {
       color: theme.navlinkBackgroundActive,
     }

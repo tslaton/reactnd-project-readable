@@ -7,6 +7,7 @@ import * as _ from 'lodash'
 // Modules
 import { formatTime } from '../utils'
 // Actions
+import { deletePost } from '../actions/posts'
 import { fetchComments } from '../actions/comments'
 // Components
 import Voter from './Voter'
@@ -37,7 +38,7 @@ class Post extends Component {
   }
 
   render() {
-    const { postData, viewMode, comments } = this.props
+    const { postData, viewMode, comments, deleteSelf } = this.props
     const { isExpanded } = this.state
     const when = formatTime(postData.timestamp)
     const submissionInfo = `submitted ${when} by ${postData.author} to /${postData.category}`
@@ -51,8 +52,8 @@ class Post extends Component {
             <div className={cl('title-bar')}>
               <NavLink className={cl('title')} exact to={`/${postData.category}/${postData.id}`}>{postData.title}</NavLink>
               <div className={cl('actions')}>
-                <a href="#">Edit</a>
-                <a href="#">Delete</a>
+                <button>Edit</button>
+                <button onClick={deleteSelf}>Delete</button>
               </div>
             </div>
             <div className={cl('content', { viewMode })}>
@@ -78,6 +79,7 @@ class Post extends Component {
 Post.propTypes = {
   postData: PropTypes.object.isRequired,
   viewMode: PropTypes.string.isRequired,
+  goBack: PropTypes.func,
 }
 
 function mapStateToProps({ comments }, { postData }) {
@@ -87,9 +89,16 @@ function mapStateToProps({ comments }, { postData }) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch, { postData, viewMode, goBack }) {
+  const id = postData.id
   return {
-    fetchComments: (parentId) => fetchComments(dispatch, { parentId }),
+    fetchComments: (parentId) => fetchComments(dispatch, parentId),
+    deleteSelf: () => {
+      deletePost(dispatch, id)
+      if (viewMode === 'detail') {
+        goBack()
+      }
+    },
   }
 }
 

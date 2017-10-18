@@ -27,7 +27,7 @@ export function fetchPost(id) {
     .then(res => res.json())
 }
 
-export function addPost(post) {
+export function createPost(post) {
   return fetch(`${BASE_URL}/posts`, {
     headers: { ...headers,
       'Content-Type': 'application/json'
@@ -68,7 +68,6 @@ export function deletePost(id) {
     headers: headers,
     method: 'DELETE',
   })
-    .then(res => res.json())
 }
 
 // Comments

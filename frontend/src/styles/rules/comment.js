@@ -1,4 +1,5 @@
 import theme from '../themes'
+import { nakedButton } from './common'
 
 export const comment = () => ({
   display: 'grid',
@@ -14,16 +15,16 @@ export const panel = () => ({
 
 export const infoBar = () => ({
   display: 'grid',
-  gridTemplateColumns: '1fr 64px',
+  gridTemplateColumns: '1fr 72px',
   marginBottom: '4px',
 })
 
 export const actions = () => ({
   alignSelf: 'start',
   justifySelf: 'end',
-  '> a': {
+  '> button': {
+    ...nakedButton(),
     fontSize: '12px',
-    textDecoration: 'none',
     padding: '2px',
     color: theme.action,
   }

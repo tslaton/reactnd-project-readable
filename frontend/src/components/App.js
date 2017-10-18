@@ -19,7 +19,7 @@ class App extends Component {
   }
 
   render() {
-    const { categories, posts } = this.props
+    const { categories, posts, history } = this.props
     const extendedCategories = [{ name: 'all', path: '' }, ...categories]
 
     return (
@@ -28,7 +28,7 @@ class App extends Component {
           <Route key={`route-${category.name}`} exact path={`/${category.path}`} render={() =>
             <div>
               <Navbar categories={extendedCategories}/>
-              <ActionBar/>
+              <ActionBar category={category.name}/>
               <PostList posts={posts.filter(
                 (post) => post.category === category.name || category.name === 'all'
               )}/>
@@ -39,7 +39,7 @@ class App extends Component {
           <Route key={`route-${post.category}-${post.id}`} exact path={`/${post.category}/${post.id}`} render={() =>
             <div>
               <Navbar parentCategory={post.category}/>
-              <Post postData={post} viewMode="detail"/>
+              <Post postData={post} viewMode="detail" goBack={history.goBack}/>
             </div>
           }/>
         )}

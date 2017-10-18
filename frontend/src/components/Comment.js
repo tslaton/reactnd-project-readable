@@ -24,8 +24,8 @@ class Comment extends Component {
               <span>{formatTime(commentData.timestamp)}</span>
             </div>
             <div className={cl('actions')}>
-              <a href="#">Edit</a>
-              <a href="#">Delete</a>
+              <button>Edit</button>
+              <button>Delete</button>
             </div>
           </div>
           <div>{commentData.body}</div>

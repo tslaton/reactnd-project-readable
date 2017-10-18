@@ -1,4 +1,5 @@
 import theme from '../themes'
+import { nakedButton } from './common'
 
 export const post = () => ({
   display: 'grid',
@@ -14,7 +15,7 @@ export const panel = () => ({
 
 export const titleBar = () => ({
   display: 'grid',
-  gridTemplateColumns: '1fr 64px',
+  gridTemplateColumns: '1fr 72px',
   fontSize: '20px',
   marginBottom: '4px',
 })
@@ -29,9 +30,9 @@ export const title = () => ({
 export const actions = () => ({
   alignSelf: 'start',
   justifySelf: 'end',
-  '> a': {
+  '> button': {
+    ...nakedButton(),
     fontSize: '12px',
-    textDecoration: 'none',
     padding: '2px',
     color: theme.action,
   }
@@ -46,12 +47,7 @@ export const expander = ({ viewMode }) => ({
   display: viewMode === 'list' ? 'block' : 'none',
   alignSelf: 'center',
   justifySelf: 'center',
-  '> button': {
-    outline: 'none',
-    border: 'none',
-    backgroundColor:' transparent',
-    boxShadow: 'none',
-  }
+  '> button': nakedButton(),
 })
 
 export const body = ({ viewMode, isExpanded }) => ({

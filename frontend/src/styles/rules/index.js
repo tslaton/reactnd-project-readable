@@ -1,9 +1,11 @@
 const modules = {
+  common: require('./common'),
   navbar: require('./navbar'),
   actionBar: require('./action-bar'),
   voter: require('./voter'),
   post: require('./post'),
   comment: require('./comment'),
+  editModal: require('./edit-modal'),
 }
 
 // Namespace the rules

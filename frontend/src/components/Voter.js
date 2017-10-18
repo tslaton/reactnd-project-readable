@@ -46,10 +46,10 @@ function mapDispatchToProps(dispatch) {
   return {
     vote: (targetType, id, vote) => {
       if (targetType === 'post') {
-        voteOnPost(dispatch, { id, vote })
+        voteOnPost(dispatch, id, vote)
       }
       else {
-        voteOnComment(dispatch, { id, vote })
+        voteOnComment(dispatch, id, vote)
       }
     },
   }
