@@ -8,7 +8,7 @@ export const UPVOTE_POST = 'UPVOTE_POST'
 export const DOWNVOTE_POST = 'DOWNVOTE_POST'
 export const REMOVE_POST = 'REMOVE_POST'
 
-export function receivePosts(posts) {
+function receivePosts(posts) {
   return {
     type: RECEIVE_POSTS,
     posts: posts.filter((post) => !post.deleted),
@@ -25,7 +25,7 @@ export function createPost(dispatch, post) {
     .then(data => dispatch(addPost(data)))
 }
 
-export function addPost(post) {
+function addPost(post) {
   return {
     type: ADD_POST,
     post,
@@ -37,7 +37,7 @@ export function saveEditedPost(dispatch, editedPost) {
     .then(data => dispatch(editPost(data)))
 }
 
-export function editPost({ id, title, body }) {
+function editPost({ id, title, body }) {
     return {
       type: EDIT_POST,
       id,
@@ -51,14 +51,14 @@ export function voteOnPost(dispatch, id, vote) {
     .then(() => dispatch(vote === 'upVote' ? upvotePost(id) : downvotePost(id)))
 }
 
-export function upvotePost(id) {
+function upvotePost(id) {
   return {
     type: UPVOTE_POST,
     id,
   }
 }
 
-export function downvotePost(id) {
+function downvotePost(id) {
   return {
     type: DOWNVOTE_POST,
     id,
@@ -70,7 +70,7 @@ export function deletePost(dispatch, id) {
     .then(() => dispatch(removePost(id)))
 }
 
-export function removePost(id) {
+function removePost(id) {
   return {
     type: REMOVE_POST,
     id,

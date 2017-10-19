@@ -7,7 +7,7 @@ export const UPVOTE_COMMENT = 'UPVOTE_COMMENT'
 export const DOWNVOTE_COMMENT = 'DOWNVOTE_COMMENT'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
 
-export function receiveComments(parentId, comments) {
+function receiveComments(parentId, comments) {
   return {
     type: RECEIVE_COMMENTS,
     parentId,
@@ -20,7 +20,7 @@ export function fetchComments(dispatch, parentId) {
     .then(comments => dispatch(receiveComments(parentId, comments)))
 }
 
-export function addComment(parentId, body, author) {
+function addComment(parentId, body, author) {
   return {
     type: ADD_COMMENT,
     parentId,
@@ -29,7 +29,7 @@ export function addComment(parentId, body, author) {
   }
 }
 
-export function editComment(timestamp, body) {
+function editComment(timestamp, body) {
   return {
     type: EDIT_COMMENT,
     timestamp,
@@ -42,14 +42,14 @@ export function voteOnComment(dispatch, id, vote) {
     .then(() => dispatch(vote === 'upVote' ? upvoteComment(id) : downvoteComment(id)))
 }
 
-export function upvoteComment(id) {
+function upvoteComment(id) {
   return {
     type: UPVOTE_COMMENT,
     id,
   }
 }
 
-export function downvoteComment(id) {
+function downvoteComment(id) {
   return {
     type: DOWNVOTE_COMMENT,
     id,

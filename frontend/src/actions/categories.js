@@ -2,7 +2,7 @@ import * as api from '../utils/api'
 
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES'
 
-export function receiveCategories(categories) {
+function receiveCategories(categories) {
   return {
     type: RECEIVE_CATEGORIES,
     categories,
