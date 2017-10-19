@@ -12,11 +12,11 @@ class ActionBar extends Component {
     createPostModalOpen: false,
   }
 
-  showPostModal() {
+  showCreatePostModal() {
     this.setState(() => ({ createPostModalOpen: true }))
   }
 
-  hidePostModal() {
+  hideCreatePostModal() {
     this.setState(() => ({ createPostModalOpen: false }))
   }
 
@@ -26,8 +26,8 @@ class ActionBar extends Component {
 
     return (
       <div className={cl('action-bar')}>
-        <button className={cl('add-post')} onClick={this.showPostModal.bind(this)}>Create a New Post</button>
-        <EditModal mode="create" category={category} isOpen={createPostModalOpen} onRequestClose={this.hidePostModal.bind(this)}/>
+        <button className={cl('add-post')} onClick={this.showCreatePostModal.bind(this)}>Create a New Post</button>
+        <EditModal mode="create" category={category} isOpen={createPostModalOpen} onRequestClose={this.hideCreatePostModal.bind(this)}/>
       </div>
     )
   }

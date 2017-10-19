@@ -32,13 +32,19 @@ export function addPost(post) {
   }
 }
 
-export function editPost(title, body) {
-  return {
-    type: EDIT_POST,
-    title,
-    body,
-  }
+export function saveEditedPost(dispatch, editedPost) {
+  api.editPost(editedPost.id, editedPost.title, editedPost.body)
+    .then(data => dispatch(editPost(data)))
 }
+
+export function editPost({ id, title, body }) {
+    return {
+      type: EDIT_POST,
+      id,
+      title,
+      body,
+    }
+  }
 
 export function voteOnPost(dispatch, id, vote) {
   api.voteOnPost(id, vote)

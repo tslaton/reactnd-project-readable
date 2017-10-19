@@ -12,6 +12,7 @@ import { fetchComments } from '../actions/comments'
 // Components
 import Voter from './Voter'
 import CommentList from './CommentList'
+import EditModal from './EditModal'
 // Icons
 import PostOpen from 'react-icons/lib/md/playlist-add'
 import PostClose from 'react-icons/lib/md/cancel'
@@ -22,6 +23,7 @@ const cl = scopedStyles('post')
 class Post extends Component {
   state = {
     isExpanded: false,
+    editModalOpen: false,
   }
 
   toggleExpansion() {
@@ -37,9 +39,17 @@ class Post extends Component {
     this.loadComments()
   }
 
+  showEditModal() {
+    this.setState(() => ({ editModalOpen: true }))
+  }
+
+  hideEditModal() {
+    this.setState(() => ({ editModalOpen: false }))
+  }
+
   render() {
     const { postData, viewMode, comments, deleteSelf } = this.props
-    const { isExpanded } = this.state
+    const { isExpanded, editModalOpen } = this.state
     const when = formatTime(postData.timestamp)
     const submissionInfo = `submitted ${when} by ${postData.author} to /${postData.category}`
     const commentInfo = `${comments.length} comments`
@@ -52,7 +62,7 @@ class Post extends Component {
             <div className={cl('title-bar')}>
               <NavLink className={cl('title')} exact to={`/${postData.category}/${postData.id}`}>{postData.title}</NavLink>
               <div className={cl('actions')}>
-                <button>Edit</button>
+                <button onClick={this.showEditModal.bind(this)}>Edit</button>
                 <button onClick={deleteSelf}>Delete</button>
               </div>
             </div>
@@ -71,6 +81,7 @@ class Post extends Component {
           </div>
         </div>
         {viewMode === 'detail' && <CommentList comments={comments}/>}
+        <EditModal mode="edit" data={postData} category={postData.category} isOpen={editModalOpen} onRequestClose={this.hideEditModal.bind(this)}/>
       </div>
     )
   }

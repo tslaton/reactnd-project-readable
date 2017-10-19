@@ -13,6 +13,15 @@ export default function posts(state=[], action) {
       return action.posts
     case ADD_POST:
       return [...state, action.post]
+    case EDIT_POST:
+      return state.map((post) => {
+        if (post.id === action.id) {
+          return {...post, title: action.title, body: action.body }
+        }
+        else {
+          return post
+        }
+      })
     case UPVOTE_POST:
       return state.map((post) => {
         if (post.id === action.id) {

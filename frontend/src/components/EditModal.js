@@ -6,7 +6,7 @@ import Modal from 'react-modal'
 // Modules
 import { capitalize } from '../utils'
 // Actions
-import { createPost } from '../actions/posts'
+import { createPost, saveEditedPost } from '../actions/posts'
 // Components
 import Select from './Select'
 // Styles
@@ -40,15 +40,17 @@ class EditModal extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { mode, createPost, onRequestClose } = this.props
+    const { mode, data, createPost, saveEditedPost, onRequestClose } = this.props
+    const post = { ...this.state }
+    post.title = post.title || '<untitled>'
+    post.author = post.author || '<anonymous>'
+    post.body = post.body || '<empty>'
     switch(mode) {
       case 'edit':
-        return
+        post.id = data.id
+        saveEditedPost(post)
+        break
       default:
-        const post = { ...this.state }
-        post.title = post.title || '<untitled>'
-        post.author = post.author || '<anonymous>'
-        post.body = post.body || '<empty>'
         createPost(post)
     }
     onRequestClose()
@@ -106,6 +108,7 @@ class EditModal extends Component {
                 value={this.state.author}
                 placeholder="Author"
                 onChange={this.updateState.bind(this, 'author')}
+                disabled={mode !== 'create'}
               />
             </div>
           </section>
@@ -118,7 +121,7 @@ class EditModal extends Component {
             ></textarea>
           </section>
           <section>
-            <input type="submit" value="Post"/>
+            <input type="submit" value={mode === 'create' ? 'Post' : 'Save'}/>
           </section>
         </form>
       </Modal>
@@ -137,6 +140,7 @@ EditModal.propTypes = {
 function mapDispatchToProps(dispatch) {
   return {
     createPost: (post) => createPost(dispatch, post),
+    saveEditedPost: (editedPost) => saveEditedPost(dispatch, editedPost),
   }
 }
 
