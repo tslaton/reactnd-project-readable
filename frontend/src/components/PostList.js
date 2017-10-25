@@ -1,13 +1,17 @@
+// Libraries
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+// Components
 import Post from './Post'
+import ActionBar from './ActionBar'
 
 class PostList extends Component {
   render() {
-    const { posts } = this.props
+    const { category, posts } = this.props
 
     return (
       <div>
+        <ActionBar operand="post" category={category}/>
         {posts.map((post) =>
           <Post key={`post-${post.id}`} postData={post} viewMode="list"/>
         )}
@@ -17,6 +21,7 @@ class PostList extends Component {
 }
 
 PostList.propTypes = {
+  category: PropTypes.string.isRequired,
   posts: PropTypes.array.isRequired,
 }
 

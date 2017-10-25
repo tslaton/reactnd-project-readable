@@ -1,11 +1,12 @@
 import * as api from '../utils/api'
+import uuid from 'uuid/v1'
 
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS'
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const EDIT_COMMENT = 'EDIT_COMMENT'
 export const UPVOTE_COMMENT = 'UPVOTE_COMMENT'
 export const DOWNVOTE_COMMENT = 'DOWNVOTE_COMMENT'
-export const DELETE_COMMENT = 'DELETE_COMMENT'
+export const REMOVE_COMMENT = 'REMOVE_COMMENT'
 
 function receiveComments(parentId, comments) {
   return {
@@ -20,20 +21,29 @@ export function fetchComments(dispatch, parentId) {
     .then(comments => dispatch(receiveComments(parentId, comments)))
 }
 
-function addComment(parentId, body, author) {
+export function postComment(dispatch, comment) {
+  api.postComment({ ...comment, id: uuid(), timestamp: Date.now() })
+    .then(data => dispatch(addComment(data)))
+}
+
+function addComment(comment) {
   return {
     type: ADD_COMMENT,
-    parentId,
-    body,
-    author,
+    comment,
   }
 }
 
-function editComment(timestamp, body) {
+export function saveEditedComment(dispatch, editedComment) {
+  api.editComment(editedComment.id, editedComment.body, Date.now())
+    .then(data => dispatch(editComment(data.id, data.body, data.timestamp)))
+}
+
+function editComment(id, body, timestamp) {
   return {
     type: EDIT_COMMENT,
-    timestamp,
+    id,
     body,
+    timestamp,
   }
 }
 
@@ -56,9 +66,14 @@ function downvoteComment(id) {
   }
 }
 
-export function deleteComment(id) {
+export function deleteComment(dispatch, id) {
+  api.deleteComment(id)
+    .then(() => dispatch(removeComment(id)))
+}
+
+function removeComment(id) {
   return {
-    type: DELETE_COMMENT,
+    type: REMOVE_COMMENT,
     id,
   }
 }

@@ -4,7 +4,7 @@ import {
   EDIT_COMMENT,
   UPVOTE_COMMENT,
   DOWNVOTE_COMMENT,
-  DELETE_COMMENT,
+  REMOVE_COMMENT,
 } from '../actions/comments'
 
 export default function comments(state=[], action) {
@@ -15,6 +15,17 @@ export default function comments(state=[], action) {
         acc.find((el) => el.id === comment.id) ? acc : [...acc, comment],
         action.comments
       )
+    case ADD_COMMENT:
+      return [...state, action.comment]
+    case EDIT_COMMENT:
+      return state.map((comment) => {
+        if (comment.id === action.id) {
+          return {...comment, body: action.body, timestamp: action.timestamp}
+        }
+        else {
+          return comment
+        }
+      })
     case UPVOTE_COMMENT:
       return state.map((comment) => {
         if (comment.id === action.id) {
@@ -33,6 +44,8 @@ export default function comments(state=[], action) {
           return comment
         }
       })
+    case REMOVE_COMMENT:
+      return state.filter(comment => comment.id !== action.id)
     default:
       return state
   }

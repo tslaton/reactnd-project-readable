@@ -80,8 +80,17 @@ class Post extends Component {
             <div className={cl('body', { isExpanded, viewMode })}>{postData.body}</div>
           </div>
         </div>
-        {viewMode === 'detail' && <CommentList comments={comments}/>}
-        <EditModal mode="edit" data={postData} category={postData.category} isOpen={editModalOpen} onRequestClose={this.hideEditModal.bind(this)}/>
+        {viewMode === 'detail' &&
+          <CommentList parentId={postData.id} comments={comments}/>
+        }
+        <EditModal
+          operand="post"
+          mode="edit"
+          data={postData}
+          category={postData.category}
+          isOpen={editModalOpen}
+          onRequestClose={this.hideEditModal.bind(this)}
+         />
       </div>
     )
   }

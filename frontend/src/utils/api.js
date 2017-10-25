@@ -85,7 +85,7 @@ export function fetchComment(id) {
     .then(res => res.json())
 }
 
-export function addComment(comment) {
+export function postComment(comment) {
   return fetch(`${BASE_URL}/comments`, {
     headers: { ...headers,
       'Content-Type': 'application/json'

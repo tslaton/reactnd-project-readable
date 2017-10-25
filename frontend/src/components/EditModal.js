@@ -7,6 +7,7 @@ import Modal from 'react-modal'
 import { capitalize } from '../utils'
 // Actions
 import { createPost, saveEditedPost } from '../actions/posts'
+import { postComment, saveEditedComment } from '../actions/comments'
 // Components
 import Select from './Select'
 // Styles
@@ -20,17 +21,11 @@ const categories = [
 ]
 
 class EditModal extends Component {
-  data = this.props.data || {}
-
   state = {
-    title: this.data.title || '',
-    author: this.data.author || '',
-    body: this.data.body || '',
-    category: this.props.mode === 'edit'
-      ? this.data.category
-      : this.props.category === 'all'
-        ? categories[0].name
-        : this.props.category,
+    title: '',
+    author: '',
+    body: '',
+    category: '',
   }
 
   updateState(key, event) {
@@ -40,29 +35,72 @@ class EditModal extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { mode, data, createPost, saveEditedPost, onRequestClose } = this.props
-    const post = { ...this.state }
-    post.title = post.title || '<untitled>'
-    post.author = post.author || '<anonymous>'
-    post.body = post.body || '<empty>'
+    const {
+      mode,
+      operand,
+      data,
+      parentId,
+      createPost,
+      saveEditedPost,
+      postComment,
+      saveEditedComment,
+      onRequestClose
+    } = this.props
+    const blob = {
+      author: this.state.author || '<anonymous>',
+      body: this.state.body || '<empty>',
+    }
+    const post = {
+      ...blob,
+      title: this.state.title || '<untitled>',
+      category: this.state.category,
+    }
+    const comment = {
+      ...blob,
+      parentId,
+    }
     switch(mode) {
       case 'edit':
-        post.id = data.id
-        saveEditedPost(post)
+        if (operand === 'post') {
+          post.id = data.id
+          saveEditedPost(post)
+        }
+        else {
+          comment.id = data.id
+          saveEditedComment(comment)
+        }
         break
       default:
-        createPost(post)
+        operand === 'post' ? createPost(post) : postComment(comment)
     }
     onRequestClose()
   }
 
+  onAfterOpen() {
+    const { mode, category } = this.props
+    const data = this.props.data || {}
+    const defaultState = {
+      title: data.title || '',
+      author: data.author || '',
+      body: data.body || '',
+      category: mode === 'edit'
+        ? data.category
+        : category === 'all'
+          ? categories[0].name
+          : category,
+    }
+    this.setState(() => defaultState)
+  }
+
   render() {
-    const { mode, isOpen, onRequestClose } = this.props
+    const { mode, operand, isOpen, onRequestClose } = this.props
+    const action = operand === 'comment' && mode === 'create' ? 'add' : mode
 
     return (
       <Modal
         contentLabel="Modal"
         isOpen={isOpen}
+        onAfterOpen={this.onAfterOpen.bind(this)}
         onRequestClose={onRequestClose}
         style={{
           overlay: { backgroundColor: 'rgba(0, 0, 0, 0.75)'},
@@ -77,31 +115,40 @@ class EditModal extends Component {
             width: '500px',
           }
         }}>
-        <h1 className={cl('header')}>{`${capitalize(mode)} Post`}</h1>
+        <h1 className={cl('header')}>{`${capitalize(action)} ${capitalize(operand)}`}</h1>
         <form onSubmit={this.handleSubmit.bind(this)}>
-          <section>
-            <Select
-              id="category-select"
-              label="Category:"
-              options={categories}
-              value={this.state.category}
-              onChange={this.updateState.bind(this, 'category')}
-              disabled={this.props.category !== 'all'}
-            />
-          </section>
-          <section className={cl('title-author')}>
-            <div className={cl('title')}>
-              <label htmlFor="title-input">Title:&nbsp;</label>
-              <input
-                id="title-input"
-                type="text"
-                value={this.state.title}
-                placeholder="Title"
-                onChange={this.updateState.bind(this, 'title')}
+          {operand === 'post' &&
+            <section>
+              <Select
+                id="category-select"
+                label="Category:"
+                options={categories}
+                value={this.state.category}
+                onChange={this.updateState.bind(this, 'category')}
+                disabled={this.props.category !== 'all'}
               />
-            </div>
+            </section>
+          }
+          <section className={cl('title-author')}>
+            {operand === 'post' &&
+              <div className={cl('title')}>
+                <label htmlFor="title-input">Title:&nbsp;</label>
+                <input
+                  id="title-input"
+                  type="text"
+                  value={this.state.title}
+                  placeholder="Title"
+                  onChange={this.updateState.bind(this, 'title')}
+                />
+              </div>
+            }
             <div className={cl('author')}>
-              <label htmlFor="author-input">&nbsp;&nbsp;Author:&nbsp;</label>
+              {operand === 'post' &&
+                <label htmlFor="author-input">&nbsp;&nbsp;Author:&nbsp;</label>
+              }
+              {operand === 'comment' &&
+                <label htmlFor="author-input">Author:&nbsp;</label>
+              }
               <input
                 id="author-input"
                 type="text"
@@ -131,8 +178,10 @@ class EditModal extends Component {
 
 EditModal.propTypes = {
   mode: PropTypes.string.isRequired,
+  operand: PropTypes.string.isRequired,
   data: PropTypes.object,
-  category: PropTypes.string.isRequired,
+  category: PropTypes.string,
+  parentId: PropTypes.string,
   isOpen: PropTypes.bool.isRequired,
   onRequestClose: PropTypes.func.isRequired,
 }
@@ -141,6 +190,8 @@ function mapDispatchToProps(dispatch) {
   return {
     createPost: (post) => createPost(dispatch, post),
     saveEditedPost: (editedPost) => saveEditedPost(dispatch, editedPost),
+    postComment: (comment) => postComment(dispatch, comment),
+    saveEditedComment: (editedComment) => saveEditedComment(dispatch, editedComment),
   }
 }
 

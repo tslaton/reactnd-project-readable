@@ -21,7 +21,7 @@ export function fetchPosts(dispatch) {
 }
 
 export function createPost(dispatch, post) {
-  api.createPost({...post, id: uuid(), timestamp: Date.now() })
+  api.createPost({ ...post, id: uuid(), timestamp: Date.now() })
     .then(data => dispatch(addPost(data)))
 }
 

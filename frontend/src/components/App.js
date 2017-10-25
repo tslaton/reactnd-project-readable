@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import * as _ from 'lodash'
 // Components
 import Navbar from './Navbar'
-import ActionBar from './ActionBar'
 import PostList from './PostList'
 import Post from './Post'
 // Actions
@@ -28,8 +27,7 @@ class App extends Component {
           <Route key={`route-${category.name}`} exact path={`/${category.path}`} render={() =>
             <div>
               <Navbar categories={extendedCategories}/>
-              <ActionBar category={category.name}/>
-              <PostList posts={posts.filter(
+              <PostList category={category.name} posts={posts.filter(
                 (post) => post.category === category.name || category.name === 'all'
               )}/>
             </div>
