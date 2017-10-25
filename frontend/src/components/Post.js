@@ -52,7 +52,7 @@ class Post extends Component {
     const { isExpanded, editModalOpen } = this.state
     const when = formatTime(postData.timestamp)
     const submissionInfo = `submitted ${when} by ${postData.author} to /${postData.category}`
-    const commentInfo = `${comments.length} comments`
+    const commentInfo = `${comments.length} ${comments.length === 1 ? 'comment' : 'comments'}`
 
     return (
       <div>

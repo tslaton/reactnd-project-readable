@@ -1,4 +1,4 @@
-import { format } from 'date-fns'
+import { format, distanceInWords } from 'date-fns'
 
 export function capitalize (str='') {
   return typeof str !== 'string'
@@ -21,5 +21,9 @@ export function kebabCase(str) {
 }
 
 export function formatTime(timestamp) {
-  return format(timestamp, 'MMMM Do, YYYY')
+  const now = Date.now()
+  const threeDays = 3 * 24 * 60 * 60 * 1000 // in ms
+  return now - timestamp < threeDays
+    ? `${distanceInWords(timestamp, now)} ago`
+    : format(timestamp, 'MMMM Do, YYYY')
 }
