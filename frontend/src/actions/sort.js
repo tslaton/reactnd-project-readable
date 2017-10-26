@@ -1,5 +1,7 @@
-export const CHANGE_SORT_BY = 'CHANGE_SORT_BY'
-export const CHANGE_SORT_ORDER = 'CHANGE_SORT_ORDER'
+import {
+  CHANGE_SORT_BY,
+  CHANGE_SORT_ORDER,
+} from './index'
 
 export function changeSortBy(sortBy) {
   return {

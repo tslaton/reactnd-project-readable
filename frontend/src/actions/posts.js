@@ -1,12 +1,13 @@
 import * as api from '../utils/api'
 import uuid from 'uuid/v1'
-
-export const RECEIVE_POSTS = 'RECEIVE_POSTS'
-export const ADD_POST = 'ADD_POST'
-export const EDIT_POST = 'EDIT_POST'
-export const UPVOTE_POST = 'UPVOTE_POST'
-export const DOWNVOTE_POST = 'DOWNVOTE_POST'
-export const REMOVE_POST = 'REMOVE_POST'
+import {
+  RECEIVE_POSTS,
+  ADD_POST,
+  EDIT_POST,
+  UPVOTE_POST,
+  DOWNVOTE_POST,
+  REMOVE_POST,
+} from './index'
 
 function receivePosts(posts) {
   return {

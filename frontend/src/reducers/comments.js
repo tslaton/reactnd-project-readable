@@ -5,7 +5,7 @@ import {
   UPVOTE_COMMENT,
   DOWNVOTE_COMMENT,
   REMOVE_COMMENT,
-} from '../actions/comments'
+} from '../actions'
 
 export default function comments(state=[], action) {
   switch (action.type) {

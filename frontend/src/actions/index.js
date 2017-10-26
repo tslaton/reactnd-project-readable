@@ -1,0 +1,19 @@
+// Categories
+export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES'
+// Posts
+export const RECEIVE_POSTS = 'RECEIVE_POSTS'
+export const ADD_POST = 'ADD_POST'
+export const EDIT_POST = 'EDIT_POST'
+export const UPVOTE_POST = 'UPVOTE_POST'
+export const DOWNVOTE_POST = 'DOWNVOTE_POST'
+export const REMOVE_POST = 'REMOVE_POST'
+// Comments
+export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS'
+export const ADD_COMMENT = 'ADD_COMMENT'
+export const EDIT_COMMENT = 'EDIT_COMMENT'
+export const UPVOTE_COMMENT = 'UPVOTE_COMMENT'
+export const DOWNVOTE_COMMENT = 'DOWNVOTE_COMMENT'
+export const REMOVE_COMMENT = 'REMOVE_COMMENT'
+// Sort
+export const CHANGE_SORT_BY = 'CHANGE_SORT_BY'
+export const CHANGE_SORT_ORDER = 'CHANGE_SORT_ORDER'

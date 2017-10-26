@@ -5,7 +5,7 @@ import {
   UPVOTE_POST,
   DOWNVOTE_POST,
   REMOVE_POST,
-} from '../actions/posts'
+} from '../actions'
 
 export default function posts(state=[], action) {
   switch(action.type) {

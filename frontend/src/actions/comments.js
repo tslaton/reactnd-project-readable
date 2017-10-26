@@ -1,12 +1,13 @@
 import * as api from '../utils/api'
 import uuid from 'uuid/v1'
-
-export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS'
-export const ADD_COMMENT = 'ADD_COMMENT'
-export const EDIT_COMMENT = 'EDIT_COMMENT'
-export const UPVOTE_COMMENT = 'UPVOTE_COMMENT'
-export const DOWNVOTE_COMMENT = 'DOWNVOTE_COMMENT'
-export const REMOVE_COMMENT = 'REMOVE_COMMENT'
+import {
+  RECEIVE_COMMENTS,
+  ADD_COMMENT,
+  EDIT_COMMENT,
+  UPVOTE_COMMENT,
+  DOWNVOTE_COMMENT,
+  REMOVE_COMMENT,
+} from './index'
 
 function receiveComments(parentId, comments) {
   return {

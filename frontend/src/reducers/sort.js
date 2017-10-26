@@ -1,7 +1,7 @@
 import {
   CHANGE_SORT_BY,
   CHANGE_SORT_ORDER,
-} from '../actions/sort'
+} from '../actions'
 
 export function sortPostsBy(state='voteScore', action) {
   switch(action.type) {

@@ -1,6 +1,5 @@
 import * as api from '../utils/api'
-
-export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES'
+import { RECEIVE_CATEGORIES } from './index'
 
 function receiveCategories(categories) {
   return {
