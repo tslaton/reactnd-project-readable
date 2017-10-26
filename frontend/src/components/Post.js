@@ -112,9 +112,9 @@ function mapStateToProps({ comments }, { postData }) {
 function mapDispatchToProps(dispatch, { postData, viewMode, goBack }) {
   const id = postData.id
   return {
-    fetchComments: (parentId) => fetchComments(dispatch, parentId),
+    fetchComments: (parentId) => dispatch(fetchComments(parentId)),
     deleteSelf: () => {
-      deletePost(dispatch, id)
+      dispatch(deletePost(id))
       if (viewMode === 'detail') {
         goBack()
       }

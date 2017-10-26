@@ -53,11 +53,4 @@ function mapStateToProps({ categories, posts, sortPostsBy, orderPosts }) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchCategories: () => fetchCategories(dispatch),
-    fetchPosts: (category) => fetchPosts(dispatch),
-  }
-}
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))
+export default withRouter(connect(mapStateToProps, {fetchCategories, fetchPosts})(App))

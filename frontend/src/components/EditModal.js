@@ -186,13 +186,4 @@ EditModal.propTypes = {
   onRequestClose: PropTypes.func.isRequired,
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    createPost: (post) => createPost(dispatch, post),
-    saveEditedPost: (editedPost) => saveEditedPost(dispatch, editedPost),
-    postComment: (comment) => postComment(dispatch, comment),
-    saveEditedComment: (editedComment) => saveEditedComment(dispatch, editedComment),
-  }
-}
-
-export default connect(null, mapDispatchToProps)(EditModal)
+export default connect(null, { createPost, saveEditedPost, postComment, saveEditedComment })(EditModal)

@@ -67,7 +67,7 @@ Comment.propTypes = {
 function mapDispatchToProps(dispatch, { commentData }) {
   const id = commentData.id
   return {
-    deleteSelf: () => deleteComment(dispatch, id),
+    deleteSelf: () => dispatch(deleteComment(id)),
   }
 }
 

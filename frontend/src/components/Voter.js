@@ -13,24 +13,14 @@ import scopedStyles from '../styles/renderer'
 const cl = scopedStyles('voter')
 
 class Voter extends Component {
-  upVote() {
-    const { vote, parentType, parentID } = this.props
-    vote(parentType, parentID, 'upVote')
-  }
-
-  downVote() {
-    const { vote, parentType, parentID } = this.props
-    vote(parentType, parentID, 'downVote')
-  }
-
   render() {
-    const { voteScore } = this.props
+    const { voteScore, upVote, downVote } = this.props
 
     return (
       <div className={cl('voter', { voteScore })}>
-        <GoArrowUp className={cl('arrow-up')} size={30} onClick={this.upVote.bind(this)}/>
+        <GoArrowUp className={cl('arrow-up')} size={30} onClick={upVote}/>
         {voteScore !== undefined && <div className={cl('vote-score')}>{voteScore}</div>}
-        <GoArrowDown className={cl('arrow-down')} size={30} onClick={this.downVote.bind(this)}/>
+        <GoArrowDown className={cl('arrow-down')} size={30} onClick={downVote}/>
       </div>
     )
   }
@@ -42,16 +32,14 @@ Voter.propTypes = {
   voteScore: PropTypes.number,
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch, { parentType, parentID }) {
   return {
-    vote: (targetType, id, vote) => {
-      if (targetType === 'post') {
-        voteOnPost(dispatch, id, vote)
-      }
-      else {
-        voteOnComment(dispatch, id, vote)
-      }
-    },
+    upVote: () => dispatch(parentType === 'post'
+      ? voteOnPost(parentID, 'upVote')
+      : voteOnComment(parentID, 'upVote')),
+    downVote: () => dispatch(parentType === 'post'
+      ? voteOnPost(parentID, 'downVote')
+      : voteOnComment(parentID, 'downVote')),
   }
 }
 

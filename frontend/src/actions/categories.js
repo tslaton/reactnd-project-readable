@@ -8,7 +8,7 @@ function receiveCategories(categories) {
   }
 }
 
-export function fetchCategories(dispatch) {
-  api.fetchCategories()
+export function fetchCategories() {
+  return (dispatch) => api.fetchCategories()
     .then(data => dispatch(receiveCategories(data.categories || [])))
 }

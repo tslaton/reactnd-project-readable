@@ -16,13 +16,13 @@ function receivePosts(posts) {
   }
 }
 
-export function fetchPosts(dispatch) {
-  api.fetchPosts()
+export function fetchPosts() {
+  return (dispatch) => api.fetchPosts()
     .then(data => dispatch(receivePosts(data || [])))
 }
 
-export function createPost(dispatch, post) {
-  api.createPost({ ...post, id: uuid(), timestamp: Date.now() })
+export function createPost(post) {
+  return (dispatch) => api.createPost({ ...post, id: uuid(), timestamp: Date.now() })
     .then(data => dispatch(addPost(data)))
 }
 
@@ -33,8 +33,8 @@ function addPost(post) {
   }
 }
 
-export function saveEditedPost(dispatch, editedPost) {
-  api.editPost(editedPost.id, editedPost.title, editedPost.body)
+export function saveEditedPost(editedPost) {
+  return (dispatch) => api.editPost(editedPost.id, editedPost.title, editedPost.body)
     .then(data => dispatch(editPost(data)))
 }
 
@@ -47,8 +47,8 @@ function editPost({ id, title, body }) {
     }
   }
 
-export function voteOnPost(dispatch, id, vote) {
-  api.voteOnPost(id, vote)
+export function voteOnPost(id, vote) {
+  return (dispatch) => api.voteOnPost(id, vote)
     .then(() => dispatch(vote === 'upVote' ? upvotePost(id) : downvotePost(id)))
 }
 
@@ -66,8 +66,8 @@ function downvotePost(id) {
   }
 }
 
-export function deletePost(dispatch, id) {
-  api.deletePost(id)
+export function deletePost(id) {
+  return (dispatch) => api.deletePost(id)
     .then(() => dispatch(removePost(id)))
 }
 
