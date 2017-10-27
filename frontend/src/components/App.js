@@ -46,6 +46,9 @@ class App extends Component {
   }
 }
 
+// To address reviewer's comment: _.orderBy does not mutate the input data.
+// Therefore, I believe it is not necessary to move this code to a reducer.
+// I actually prefer sorting only the displayed data.
 function mapStateToProps({ categories, posts, sortPostsBy, orderPosts }) {
   return {
     categories,
