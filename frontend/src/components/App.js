@@ -41,6 +41,9 @@ class App extends Component {
             </div>
           }/>
         )}
+        <Route render={() =>
+          <div>404 error: The page you are looking for could not be found.</div>
+        }/>
       </Switch>
     )
   }
